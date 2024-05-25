@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppCtxProvider data={{ state, dispatch }}>
+        <AppCtxProvider myData={{ state, dispatch }}>
           {children}
         </AppCtxProvider>
       </body>

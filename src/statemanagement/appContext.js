@@ -8,9 +8,9 @@ export const useAppContext = () => {
     return useContext(appCtx)
 }
 
-export const AppCtxProvider = ({ children, data }) => {
+export const AppCtxProvider = ({ children, myData }) => {
 
-    return <appCtx.Provider value={data}>
+    return <appCtx.Provider value={myData}>
         {children}
     </appCtx.Provider>
 
