@@ -1,0 +1,30 @@
+[
+    {
+        "lbl": "User ID",
+        "tag": "input",
+        "type": "text",
+        "name": "uid",
+        "isRequired": true,
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED",
+            "EMAIL"
+        ],
+        "placeholder": "User id"
+    },
+    {
+        "lbl": "Password",
+        "tag": "input",
+        "type": "password",
+        "name": "password",
+        "isRequired": true,
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED",
+            "MIN5CHAR"
+        ],
+        "placeholder": "Password"
+    }
+]

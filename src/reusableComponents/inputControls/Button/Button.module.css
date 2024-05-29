@@ -1,0 +1,7 @@
+.button {
+    border: 1px solid var(--app-btn-border-color)
+}
+
+.button:hover {
+    border: 1px solid var(--app-btn-border-hover-color)
+}

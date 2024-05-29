@@ -1,1 +1,8 @@
-:root {}
+body {
+    margin: 0px
+}
+
+:root {
+    --app-btn-border-color: #dee2e6;
+    --app-btn-border-hover-color: #2189f1;
+}
