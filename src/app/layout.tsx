@@ -38,9 +38,13 @@ export default function RootLayout({
     })()
 
   }, [])
-  const obj: { state: any, dispatch: any } = {
+  type objType = {
+    state: any,
+    dispatch: any
+  }
+  const obj: objType = {
     state,
-    dispatch
+    dispatch,
   }
   return (
     <html lang="en">

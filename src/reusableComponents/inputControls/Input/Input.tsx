@@ -5,7 +5,7 @@ type propsType = {
     type: any,
     name: any,
     placeholder: any
-    handleChange: () => void,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     error: String
 }
 const Input = ({ lbl, isRequired, type, name, placeholder, handleChange, error }: propsType) => {
