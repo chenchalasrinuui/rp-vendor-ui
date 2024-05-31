@@ -18,7 +18,7 @@ const Input = ({ lbl, isRequired, type, name, placeholder, handleChange, error }
                 <input onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
             </div>
             <div className='col-4'>
-                {error && <b className="text-danger">Please Enter value</b>}
+                {error && <b className="text-danger">{error}</b>}
             </div>
         </div>
     )

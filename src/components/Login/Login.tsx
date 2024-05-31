@@ -2,30 +2,19 @@ import React, { useState } from 'react'
 import config from './configuration.json'
 import Input from '@/reusableComponents/inputControls/Input/Input'
 import Button from '@/reusableComponents/inputControls/Button'
+import {fieldLevelValidation,formLevelValidation} from '@/services/validations'
+
 const Login = () => {
     const [formControls, setFormControls] = useState(config)
     const handleClick = () => {
-        const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
-        clonedFormControl.forEach((obj: any) => {
-            if (!obj.value) {
-                obj.error = "Enter value"
-            }
-        })
-        setFormControls(clonedFormControl)
+        const [isFormValid,dataObj]=formLevelValidation(formControls,setFormControls)
+      if(!isFormValid)return;
+      alert('sending request to server...')
+      console.log(dataObj)
     }
 
     const handleChange = (eve: any) => {
-        const { name, value } = eve.target;
-        const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
-        const inputControlObj: any = clonedFormControl.find((obj: any) => {
-            return obj.name === name;
-        })
-        inputControlObj.value = value;
-        inputControlObj.error = ""
-        if (!inputControlObj.value) {
-            inputControlObj.error = "Enter value"
-        }
-        setFormControls(clonedFormControl)
+       fieldLevelValidation(eve,formControls,setFormControls)
     }
 
     return (
