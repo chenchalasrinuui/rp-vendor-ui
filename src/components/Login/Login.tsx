@@ -3,14 +3,19 @@ import config from './configuration.json'
 import Input from '@/reusableComponents/inputControls/Input/Input'
 import Button from '@/reusableComponents/inputControls/Button'
 import {fieldLevelValidation,formLevelValidation} from '@/services/validations'
+import { LOGIN_GQ } from '@/services/graphql/logingq'
+import {useLazyQuery} from '@apollo/client'
 
-const Login = () => {
+const Login =  () => {
     const [formControls, setFormControls] = useState(config)
-    const handleClick = () => {
+    const [fnLogin]=useLazyQuery(LOGIN_GQ)
+    const handleClick = async () => {
         const [isFormValid,dataObj]=formLevelValidation(formControls,setFormControls)
       if(!isFormValid)return;
-      alert('sending request to server...')
-      console.log(dataObj)
+      const res=await fnLogin({
+        variables:{data:dataObj},
+      })
+      console.log(res)
     }
 
     const handleChange = (eve: any) => {

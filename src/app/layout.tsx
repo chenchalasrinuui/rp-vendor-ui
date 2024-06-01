@@ -11,6 +11,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AppCookie } from "@/services/cookies";
 const inter = Inter({ subsets: ["latin"] });
+import {ApolloClient,InMemoryCache,ApolloProvider} from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/',
+  cache: new InMemoryCache(),
+});
 
 interface State {
   isLoggedIn: boolean;
@@ -53,9 +59,11 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <AppCtxProvider myData={obj}>
+          <ApolloProvider client={client}>
           <Header />
           {children}
           <Footer />
+          </ApolloProvider>
         </AppCtxProvider>
       </body>
     </html>

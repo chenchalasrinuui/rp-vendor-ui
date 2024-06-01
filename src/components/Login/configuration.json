@@ -1,5 +1,19 @@
 [
     {
+        "lbl": "Role",
+        "tag": "input",
+        "type": "radio",
+        "name": "role",
+        "isRequired": true,
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED"
+        ],
+        "options":["Admin", "Vendor"],
+        "values":["admin","vendor"]
+    },
+    {
         "lbl": "User ID",
         "tag": "input",
         "type": "text",
