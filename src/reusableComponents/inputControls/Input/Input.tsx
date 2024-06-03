@@ -20,7 +20,7 @@ const Input = ({ lbl, isRequired, type, name, placeholder, handleChange, error,o
                 return <> 
                 {
                  options.map((opt:any ,ind:any)=>{
-                    return <><input onChange={handleChange} type={type} name={name} value={values[ind]}/><span className="ms-2 me-4">{opt}</span></>
+                    return <React.Fragment key={`radio_${ind}`}><input onChange={handleChange} type={type} name={name} value={values[ind]}/><span className="ms-2 me-4">{opt}</span></React.Fragment>
                 })
             }
                 </>
