@@ -14,6 +14,9 @@ const inter = Inter({ subsets: ["latin"] });
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { AdminMenu } from "@/routes/private/admin/AdminMenu/AdminMenu";
 import { VendorMenu } from "@/routes/private/vendor/VendorMenu";
+import { useRouter } from 'next/navigation'
+import { Loader } from "@/reusableComponents/Loader";
+import { Toaster } from "@/reusableComponents/Toaster";
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
@@ -22,6 +25,10 @@ const client = new ApolloClient({
 
 interface State {
   isLoggedIn: boolean;
+  role: string,
+  uid: string,
+  isShowLoader: boolean,
+  isShowToaster: boolean
 }
 interface loginAction {
   type: 'LOGIN';
@@ -35,13 +42,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(appReducer, init)
+  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(appReducer, init);
+  const router = useRouter()
   useEffect(() => {
     (async () => {
       const isLoggedIn = await AppCookie.hasToken()
+      if (!isLoggedIn) {
+        router.push("/")
+      }
+      const role = await AppCookie.getCookie('role')
+      const uid = await AppCookie.getCookie("uid")
       dispatch({
         type: 'LOGIN',
-        payload: isLoggedIn
+        payload: {
+          isLoggedIn,
+          role,
+          uid
+        }
       })
     })()
 
@@ -63,12 +80,15 @@ export default function RootLayout({
         <AppCtxProvider myData={obj}>
           <ApolloProvider client={client}>
             <Header />
-            <AdminMenu />
-            <VendorMenu />
+            {state?.isLoggedIn && state?.role === 'admin' && <AdminMenu />}
+            {state?.isLoggedIn && state?.role === 'vendor' && <VendorMenu />}
             {children}
             <Footer />
+            {state?.isShowLoader && <Loader />}
+            {state?.isShowToaster && <Toaster />}
           </ApolloProvider>
         </AppCtxProvider>
+
       </body>
     </html>
   );

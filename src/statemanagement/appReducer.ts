@@ -3,7 +3,17 @@ export const appReducer: any = (state: any, action: any) => {
         case 'LOGIN':
             return {
                 ...state,
-                isLoggedIn: action.payload
+                ...action.payload
+            }
+        case 'LOADER':
+            return {
+                ...state,
+                isShowLoader: action.payload
+            }
+        case 'TOASTER':
+            return {
+                ...state,
+                ...action.payload
             }
 
     }
