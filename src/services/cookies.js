@@ -31,4 +31,13 @@ export class AppCookie {
         const cookieObj = await cookieStore.get("token")
         return cookieObj ? true : false
     }
+
+    static async clear() {
+        const cookies = await cookieStore.getAll()
+        cookies.forEach(({ name }) => {
+            (async () => {
+                await cookieStore.delete(name)
+            })()
+        })
+    }
 }

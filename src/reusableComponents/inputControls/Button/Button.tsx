@@ -10,7 +10,6 @@ const Button = ({ text, handleClick, bgColor }: buttonProps) => {
         <div className='row'>
             <div className="offset-5 col-7">
                 <button style={{ background: bgColor }} className={`btn ${styles.button}`} onClick={handleClick}>{text}</button>
-
             </div>
         </div>
     )
