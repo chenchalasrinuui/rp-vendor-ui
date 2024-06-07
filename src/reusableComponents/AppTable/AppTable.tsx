@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Pagination from '../Pagination/Pagination';
+import styles from './AppTable.module.css'
 type TableProps = {
     headers: String[],
-    data: [],
+    data: any,
     columns: String[]
 
 }
@@ -12,7 +13,7 @@ const AppTable = (props: TableProps) => {
     const { headers, data, columns } = props;
     const [pageNo, setPageNo] = useState(1)
     const [currData, setCurrData] = useState([])
-    const perPage = 10;
+    const perPage = 5;
 
     useEffect(() => {
         const end = pageNo * perPage
@@ -22,8 +23,8 @@ const AppTable = (props: TableProps) => {
 
 
     return (
-        <div>
-            <table>
+        <div className={`table-responsive ${styles.appTableRoot}`}>
+            <table className={styles.appTable}>
                 <thead>
                     <tr>
                         {
@@ -47,7 +48,7 @@ const AppTable = (props: TableProps) => {
                     }
                 </tbody>
             </table>
-            <Pagination pageNo={pageNo} setPageNo={setPageNo} totalPages={Math.ceil(data.length / perPage)} />
+            {data?.length > perPage && <Pagination pageNo={pageNo} setPageNo={setPageNo} totalPages={Math.ceil(data.length / perPage)} />}
         </div>
     )
 }

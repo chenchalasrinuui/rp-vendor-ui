@@ -10,8 +10,17 @@
         "criteria": [
             "REQUIRED"
         ],
-        "options":["Admin", "Vendor"],
-        "values":["admin","vendor"]
+        "options": [
+            "Admin",
+            "Vendor"
+        ],
+        "values": [
+            "admin",
+            "vendor"
+        ],
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
     },
     {
         "lbl": "User ID",
@@ -25,7 +34,10 @@
             "REQUIRED",
             "EMAIL"
         ],
-        "placeholder": "User id"
+        "placeholder": "User id",
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
     },
     {
         "lbl": "Password",
@@ -39,6 +51,9 @@
             "REQUIRED",
             "MIN5CHAR"
         ],
-        "placeholder": "Password"
+        "placeholder": "Password",
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
     }
 ]
