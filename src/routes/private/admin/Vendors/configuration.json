@@ -1,28 +1,5 @@
 [
     {
-        "lbl": "Role",
-        "tag": "input",
-        "type": "radio",
-        "name": "role",
-        "isRequired": true,
-        "value": "",
-        "error": "",
-        "criteria": [
-            "REQUIRED"
-        ],
-        "options": [
-            "Admin",
-            "Vendor"
-        ],
-        "values": [
-            "admin",
-            "vendor"
-        ],
-        "lblColumns": 12,
-        "errorMsgColumns": 12,
-        "inputCtrlColumns": 12
-    },
-    {
         "lbl": "User ID",
         "tag": "input",
         "type": "text",
@@ -75,8 +52,7 @@
     },
     {
         "lbl": "Address",
-        "tag": "input",
-        "type": "text",
+        "tag": "textarea",
         "name": "address",
         "isRequired": true,
         "value": "",

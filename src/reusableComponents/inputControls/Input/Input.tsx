@@ -2,7 +2,7 @@ import React from 'react'
 type propsType = {
     lbl: String,
     isRequired: boolean,
-    type: any,
+    type?: any,
     name: any,
     placeholder?: any
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,

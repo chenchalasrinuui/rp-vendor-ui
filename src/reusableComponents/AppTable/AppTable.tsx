@@ -16,9 +16,10 @@ const AppTable = (props: TableProps) => {
     const perPage = 5;
 
     useEffect(() => {
+        console.log(22, data)
         const end = pageNo * perPage
         const start = end - perPage;
-        setCurrData(data.slice(start, end))
+        setCurrData(data?.slice(start, end) || [])
     }, [pageNo])
 
 
