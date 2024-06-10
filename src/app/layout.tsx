@@ -3,6 +3,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useEffect, useReducer } from "react";
 import { appReducer } from '../statemanagement/appReducer'
 import { init } from '../statemanagement/init'

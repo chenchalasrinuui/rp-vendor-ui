@@ -11,8 +11,9 @@ type propsType = {
     lblColumns: any,
     errorMsgColumns: any,
     inputCtrlColumns: any,
+    value: string
 }
-const Textarea = ({ lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, name, placeholder, handleChange, error, options, values }: propsType) => {
+const Textarea = ({ value, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, name, placeholder, handleChange, error, options, values }: propsType) => {
 
     return (
         <div className="row mb-3">
@@ -20,7 +21,7 @@ const Textarea = ({ lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequir
                 <b>{lbl} {isRequired && <span className='text-danger'>*</span>}</b>
             </div>
             <div className={`col-${inputCtrlColumns}`}>
-                <textarea onChange={handleChange} name={name} placeholder={placeholder} className='form-control' ></textarea>
+                <textarea value={value} onChange={handleChange} name={name} placeholder={placeholder} className='form-control' ></textarea>
             </div>
             <div className={`col-${errorMsgColumns}`}>
                 {error && <b className="text-danger">{error}</b>}

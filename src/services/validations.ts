@@ -53,3 +53,19 @@ export function fieldLevelValidation(eve: any, formControls: any, setFormControl
     validate(inputControlObj)
     setFormControls(clonedFormControl)
 }
+
+export function setDataToForm(formControls: any, setFormControls: any, data: any) {
+    const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
+    clonedFormControl.forEach((obj: any) => {
+        obj.value = data[obj.name]
+    })
+    setFormControls(clonedFormControl)
+}
+
+export function clearFormData(formControls: any, setFormControls: any) {
+    const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
+    clonedFormControl.forEach((obj: any) => {
+        obj.value = "";
+    })
+    setFormControls(clonedFormControl)
+}

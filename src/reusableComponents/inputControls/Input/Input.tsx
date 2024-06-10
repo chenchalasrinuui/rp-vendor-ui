@@ -12,14 +12,15 @@ type propsType = {
     lblColumns: any,
     errorMsgColumns: any,
     inputCtrlColumns: any,
+    value: string
 }
-const Input = ({ lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
+const Input = ({ value, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
     const fnPrepareInputControls = () => {
         switch (type) {
             case 'text':
             case 'password':
             case 'number':
-                return <input onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
+                return <input value={value} onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
             case 'radio':
                 return <>
                     {
