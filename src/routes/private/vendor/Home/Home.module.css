@@ -1,0 +1,7 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: wrap;
+    height: calc(100vh - 250px);
+}

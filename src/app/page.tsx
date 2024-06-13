@@ -15,9 +15,7 @@ export default function Page() {
     (async () => {
       const role = await AppCookie.getCookie("role")
       if (state.isLoggedIn) {
-        if (role === 'admin') {
-          router.push("admin/home")
-        }
+        router.push(`${role}/home`)
       }
     })()
   }, [state.isLoggedIn])
