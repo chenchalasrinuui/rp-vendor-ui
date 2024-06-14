@@ -18,14 +18,24 @@ const regExpvaidations: any = {
     }
 }
 
-function validate(inputControlObj: any) {
-    const { criteria, value } = inputControlObj;
+function validate(inputControlObj: any, inputControls: any) {
+    const { criteria, value, compare } = inputControlObj;
     inputControlObj.error = "";
     for (let text of criteria) {
-        const { pattern, error } = regExpvaidations[text]
-        if (!pattern.test(value)) {
-            inputControlObj.error = error;
-            break;
+        if (text === "COMPARE") {
+            const compareObj1 = inputControls.find((obj: any) => obj.name === compare[0])
+            const compareObj2 = inputControls.find((obj: any) => obj.name === compare[1])
+            if (compareObj1.value && compareObj2.value && compareObj1.value !== compareObj2.value) {
+                inputControlObj.error = "Password mismatch";
+                break;
+            }
+
+        } else {
+            const { pattern, error } = regExpvaidations[text]
+            if (!pattern.test(value)) {
+                inputControlObj.error = error;
+                break;
+            }
         }
     }
 }
@@ -50,7 +60,7 @@ export function fieldLevelValidation(eve: any, formControls: any, setFormControl
         return obj.name === name;
     })
     inputControlObj.value = value;
-    validate(inputControlObj)
+    validate(inputControlObj, clonedFormControl)
     setFormControls(clonedFormControl)
 }
 

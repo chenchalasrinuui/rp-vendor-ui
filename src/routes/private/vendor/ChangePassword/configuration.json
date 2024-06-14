@@ -1,0 +1,63 @@
+[
+    {
+        "lbl": "Current Password",
+        "tag": "input",
+        "type": "password",
+        "name": "currPassword",
+        "isRequired": true,
+        "placeholder": "Current password",
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED",
+            "MIN5CHAR"
+        ],
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
+    },
+    {
+        "lbl": "New Password",
+        "tag": "input",
+        "type": "text",
+        "name": "password",
+        "isRequired": true,
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED",
+            "MIN5CHAR",
+            "COMPARE"
+        ],
+        "compare": [
+            "password",
+            "confirmPwd"
+        ],
+        "placeholder": "New password",
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
+    },
+    {
+        "lbl": "Confirm Password",
+        "tag": "input",
+        "type": "text",
+        "name": "confirmPwd",
+        "isRequired": true,
+        "value": "",
+        "error": "",
+        "criteria": [
+            "REQUIRED",
+            "MIN5CHAR",
+            "COMPARE"
+        ],
+        "compare": [
+            "password",
+            "confirmPwd"
+        ],
+        "placeholder": "Confirm password",
+        "lblColumns": 5,
+        "errorMsgColumns": 4,
+        "inputCtrlColumns": 3
+    }
+]

@@ -1,9 +1,3 @@
-import React from 'react'
+import { ChangePassword } from '@/routes/private/vendor/ChangePassword'
 
-const ChangePwd = () => {
-    return (
-        <div>ChangePwd</div>
-    )
-}
-
-export default ChangePwd;
+export default ChangePassword
