@@ -44,7 +44,7 @@ export function formLevelValidation(formControls: any, setFormControls: any) {
     const dataObj: any = {}
     clonedFormControl.forEach((obj: any) => {
         dataObj[obj.name] = obj.value;
-        validate(obj)
+        validate(obj, clonedFormControl)
     })
 
     const isFormValid = !clonedFormControl.some((obj: any) => obj.error)
