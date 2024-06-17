@@ -1,10 +1,3 @@
+import { Products } from "@/routes/private/vendor/Products";
 
-import React from 'react'
-
-const Prodcts = () => {
-    return (
-        <div>Producs</div>
-    )
-}
-
-export default Prodcts;
+export default Products;

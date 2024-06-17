@@ -20,7 +20,6 @@ const AppTable = (props: TableProps) => {
     const perPage = 5;
 
     useEffect(() => {
-        console.log(22, data)
         const end = pageNo * perPage
         const start = end - perPage;
         setCurrData(data?.slice?.(start, end) || [])
@@ -42,7 +41,8 @@ const AppTable = (props: TableProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    {currData.length > 0 ?
+
                         currData.map((obj: any, index) => {
                             return <tr key={`tr_${index}`}>
                                 {
@@ -54,6 +54,8 @@ const AppTable = (props: TableProps) => {
                                 {isShowDelete && <td><i onClick={() => handleDelete(obj)} className="bi bi-trash-fill"></i></td>}
                             </tr>
                         })
+                        :
+                        <tr><td colSpan={columns.length + 2} className='text-center'>No data found</td></tr>
                     }
                 </tbody>
             </table>

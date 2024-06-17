@@ -237,8 +237,8 @@ export const Vendors = () => {
     return (
         <div>
             <h3 className='my-3 text-center'>Vendors</h3>
-            <div className='text-end me-3 '>
-                <Button text="Add Vendor" color="white" handleClick={handleClick} bgColor="black" ></Button>
+            <div className='me-3 '>
+                <Button align='text-end' text="Add Vendor" color="white" handleClick={handleClick} bgColor="black" ></Button>
             </div>
             {data && <AppTable handleEdit={handleEdit} handleDelete={hanldeDelete} isShowDelete={true} isShowEdit={true} headers={["id", "User ID", "Password", "Phone", "Address"]} data={data?.getVendors} columns={["_id", "uid", "password", "phone", "address"]} />}
             {

@@ -31,6 +31,8 @@ const Input = ({ value, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRe
                 </>
             case 'checkbox':
                 return <div></div>
+            case 'file':
+                return <input value={value} onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
             default:
                 return <div></div>
         }

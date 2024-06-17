@@ -1,9 +1,3 @@
-import React from 'react'
-
-const Home = () => {
-    return (
-        <div>Home</div>
-    )
-}
+import { Home } from "@/routes/private/vendor/Home";
 
 export default Home;

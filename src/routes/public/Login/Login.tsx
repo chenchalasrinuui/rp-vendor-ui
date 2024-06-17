@@ -70,7 +70,7 @@ const Login = () => {
                     return <Input key={`Input_${ind}`} {...obj} handleChange={handleChange} />
                 })
             }
-            <Button text="Login" handleClick={handleClick} bgColor="white" />
+            <Button align='text-center' text="Login" handleClick={handleClick} bgColor="white" />
         </div>
     )
 }
