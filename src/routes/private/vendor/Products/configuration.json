@@ -40,7 +40,9 @@
         "value": "",
         "error": "",
         "criteria": [
-            "REQUIRED"
+            "REQUIRED",
+            "SIZE",
+            "TYPE"
         ],
         "lblColumns": 12,
         "errorMsgColumns": 12,

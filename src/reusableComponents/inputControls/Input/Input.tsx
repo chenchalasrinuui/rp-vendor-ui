@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 type propsType = {
     lbl: String,
     isRequired: boolean,
@@ -12,9 +13,10 @@ type propsType = {
     lblColumns: any,
     errorMsgColumns: any,
     inputCtrlColumns: any,
-    value: string
+    value: string,
+    src?: any
 }
-const Input = ({ value, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
+const Input = ({ value, src, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
     const fnPrepareInputControls = () => {
         switch (type) {
             case 'text':
@@ -32,7 +34,10 @@ const Input = ({ value, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRe
             case 'checkbox':
                 return <div></div>
             case 'file':
-                return <input value={value} onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
+                return <>
+                    <input onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
+                    <p className='mt-3'><Image src={`${src ? src : "/defaultImage.jpg"}`} width={100} height={100} alt="selected Image" /></p>
+                </>
             default:
                 return <div></div>
         }

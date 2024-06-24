@@ -41,6 +41,7 @@ export const Products = () => {
     const handleSubmit = () => {
         const [isFormValid, dataObj] = formLevelValidation(formControls, setFormControls)
         if (!isFormValid) return;
+        console.log(dataObj)
     }
     const handleChange = (eve: any) => {
         fieldLevelValidation(eve, formControls, setFormControls)
@@ -49,7 +50,7 @@ export const Products = () => {
         <div className='container-fluid mt-3'>
 
             <Button align='text-end' text="ADD PRODUCT" handleClick={fnAddProduct} bgColor="black" color="white" />
-            <AppTable headers={["Photo", "Name", "Cost"]} data={data?.getProducts || []} columns={["photo", "name", "cost"]} isShowDelete={true} isShowEdit={true} handleEdit={handleEdit} handleDelete={handleDelete} />
+            {data && <AppTable headers={["Photo", "Name", "Cost"]} data={[...data?.getProducts]} columns={["photo", "name", "cost"]} isShowDelete={true} isShowEdit={true} handleEdit={handleEdit} handleDelete={handleDelete} />}
             {isShowPopup && <Popup closePopup={fnClosePopup} handleFormSubmit={handleSubmit}>
                 <div className='mt-5'>
                     {
