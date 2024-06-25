@@ -10,13 +10,18 @@ import { Popup } from '@/reusableComponents/Popup/Popup'
 import config from './configuration.json'
 import Input from '@/reusableComponents/inputControls/Input'
 import { clearFormData, fieldLevelValidation, formLevelValidation, setDataToForm } from '@/services/validations'
-
+import { useMutation } from '@apollo/client'
+import { SAVE_PRODUCT } from '@/services/graphql/saveProductGQ'
+import { Cookie } from 'next/font/google'
+import { AppCookie } from '@/services/cookies'
 
 export const Products = () => {
     const [formControls, setFormControls] = useState(config)
     const { loading, error, data, refetch } = useQuery(PRODUCTS_LIST_GQ)
+    const [saveProduct, { loading: saveProductLoading, error: saveProductError, data: saveProductData }] = useMutation(SAVE_PRODUCT)
     const [isShowPopup, setIsShowPopup] = useState(false)
     const { dispatch }: any = useAppContext()
+
     useEffect(() => {
         dispatch({
             type: "LOADER",
@@ -38,10 +43,17 @@ export const Products = () => {
     const fnClosePopup = () => {
         setIsShowPopup(false)
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const [isFormValid, dataObj] = formLevelValidation(formControls, setFormControls)
         if (!isFormValid) return;
-        console.log(dataObj)
+        debugger;
+        const uid = await AppCookie.getCookie("uid")
+        const res = await saveProduct({
+            variables: {
+                file: dataObj?.photo
+            }
+        })
+        console.log(res)
     }
     const handleChange = (eve: any) => {
         fieldLevelValidation(eve, formControls, setFormControls)

@@ -18,11 +18,18 @@ import { VendorMenu } from "@/routes/private/vendor/VendorMenu";
 import { useRouter } from 'next/navigation'
 import { Loader } from "@/reusableComponents/Loader";
 import { Toaster } from "@/reusableComponents/Toaster";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  link: createUploadLink({
+    uri: 'http://localhost:4000/graphql/'
+  }),
   cache: new InMemoryCache(),
 });
+// const client = new ApolloClient({
+//   uri: 'http://localhost:4000/graphql',
+//   cache: new InMemoryCache(),
+// });
 
 interface State {
   isLoggedIn: boolean;

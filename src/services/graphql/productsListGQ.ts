@@ -6,7 +6,7 @@ query GetProducts {
     name
     cost
     uid
-    photo
+    path
     _id
   }
 }
