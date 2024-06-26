@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Pagination from '../Pagination/Pagination';
 import styles from './AppTable.module.css'
+import Image from 'next/image';
 type TableProps = {
     headers: string[],
     data: any,
@@ -8,13 +9,16 @@ type TableProps = {
     isShowEdit?: boolean,
     isShowDelete?: boolean
     handleEdit: (data: any) => void,
-    handleDelete: (data: any) => void
+    handleDelete: (data: any) => void,
+    hasImage?: boolean,
+    imageHeaders?: any,
+    imageColumns?: any
 
 }
 
 const AppTable = (props: TableProps) => {
 
-    const { headers, data, columns, isShowDelete, isShowEdit, handleDelete, handleEdit } = props;
+    const { hasImage, imageHeaders, imageColumns, headers, data, columns, isShowDelete, isShowEdit, handleDelete, handleEdit } = props;
     const [pageNo, setPageNo] = useState(1)
     const [currData, setCurrData] = useState([])
     const perPage = 5;
@@ -32,6 +36,13 @@ const AppTable = (props: TableProps) => {
                 <thead>
                     <tr>
                         {
+                            hasImage &&
+                            imageHeaders.map((value: any, index: number) => {
+                                return <th key={`th_${index}`}>{value}</th>
+                            })
+
+                        }
+                        {
                             headers.map((value, index) => {
                                 return <th key={`th_${index}`}>{value}</th>
                             })
@@ -45,6 +56,11 @@ const AppTable = (props: TableProps) => {
 
                         currData.map((obj: any, index) => {
                             return <tr key={`tr_${index}`}>
+                                {
+                                    hasImage && imageColumns.map((key: any, ind: any) => {
+                                        return <td key={`td_${ind}`}><Image alt="image" src={`http://localhost:4000${obj[key]}`} width="100" height="100" /></td>
+                                    })
+                                }
                                 {
                                     columns.map((key: any, ind) => {
                                         return <td key={`td_${ind}`}>{obj[key]}</td>

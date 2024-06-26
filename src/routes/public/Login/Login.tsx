@@ -25,10 +25,11 @@ const Login = () => {
             })
             const { login } = res?.data
             if (login) {
-                const { role, token, uid } = login
+                const { role, token, uid, _id } = login
                 AppCookie.setCookies("token", token)
                 AppCookie.setCookies("role", role)
                 AppCookie.setCookies("uid", uid)
+                AppCookie.setCookies("id", _id)
                 dispatch({
                     type: "LOGIN",
                     payload: {

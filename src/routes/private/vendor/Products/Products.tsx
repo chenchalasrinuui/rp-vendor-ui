@@ -46,11 +46,16 @@ export const Products = () => {
     const handleSubmit = async () => {
         const [isFormValid, dataObj] = formLevelValidation(formControls, setFormControls)
         if (!isFormValid) return;
-        debugger;
-        const uid = await AppCookie.getCookie("uid")
+        const id = await AppCookie.getCookie("id")
         const res = await saveProduct({
             variables: {
-                file: dataObj?.photo
+                "file": dataObj.photo,
+                "product": {
+                    "cost": Number(dataObj.cost),
+                    "name": dataObj.name,
+                    "path": "",
+                    "uid": id
+                }
             }
         })
         console.log(res)
@@ -62,7 +67,19 @@ export const Products = () => {
         <div className='container-fluid mt-3'>
 
             <Button align='text-end' text="ADD PRODUCT" handleClick={fnAddProduct} bgColor="black" color="white" />
-            {data && <AppTable headers={["Photo", "Name", "Cost"]} data={[...data?.getProducts]} columns={["photo", "name", "cost"]} isShowDelete={true} isShowEdit={true} handleEdit={handleEdit} handleDelete={handleDelete} />}
+            {data && <AppTable
+                headers={["Name", "Cost"]}
+                data={[...data?.getProducts]}
+                columns={["name", "cost"]}
+                isShowDelete={true}
+                isShowEdit={true}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                hasImage={true}
+                imageHeaders={["Photo"]}
+                imageColumns={['path']}
+
+            />}
             {isShowPopup && <Popup closePopup={fnClosePopup} handleFormSubmit={handleSubmit}>
                 <div className='mt-5'>
                     {
