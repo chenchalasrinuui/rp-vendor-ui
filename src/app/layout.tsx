@@ -90,7 +90,10 @@ export default function RootLayout({
             <Header />
             {state?.isLoggedIn && state?.role === 'admin' && <AdminMenu />}
             {state?.isLoggedIn && state?.role === 'vendor' && <VendorMenu />}
-            {children}
+            <div className="mb-5">
+              {children}
+            </div>
+
             <Footer />
             {state?.isShowLoader && <Loader />}
             {state?.isShowToaster && <Toaster />}
@@ -101,3 +104,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

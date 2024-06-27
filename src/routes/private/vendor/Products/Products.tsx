@@ -12,10 +12,11 @@ import Input from '@/reusableComponents/inputControls/Input'
 import { clearFormData, fieldLevelValidation, formLevelValidation, setDataToForm } from '@/services/validations'
 import { useMutation } from '@apollo/client'
 import { SAVE_PRODUCT } from '@/services/graphql/saveProductGQ'
-import { Cookie } from 'next/font/google'
 import { AppCookie } from '@/services/cookies'
+import { Modal } from '@/reusableComponents/Modal'
 
 export const Products = () => {
+    const [isShowModal, setIsShowModal] = useState(false)
     const [formControls, setFormControls] = useState(config)
     const { loading, error, data, refetch } = useQuery(PRODUCTS_LIST_GQ)
     const [saveProduct, { loading: saveProductLoading, error: saveProductError, data: saveProductData }] = useMutation(SAVE_PRODUCT)
@@ -29,12 +30,24 @@ export const Products = () => {
         })
     }, [loading])
 
-    const handleEdit = () => {
-
+    const handleEdit = (row: any) => {
+        setDataToForm(formControls, setFormControls, row)
+        setIsShowPopup(true);
+        console.log(row);
     }
 
-    const handleDelete = () => {
+    const handleDelete = (row: any) => {
+        setIsShowModal(true);
+    }
+    const modalActions = async (opt: string) => {
+        setIsShowModal(false);
+        if (opt === 'O') {
+            dispatch({
+                type: "LOADER",
+                payload: true
+            })
 
+        }
     }
     const fnAddProduct = () => {
         setIsShowPopup(true);
@@ -44,21 +57,56 @@ export const Products = () => {
         setIsShowPopup(false)
     }
     const handleSubmit = async () => {
-        const [isFormValid, dataObj] = formLevelValidation(formControls, setFormControls)
-        if (!isFormValid) return;
-        const id = await AppCookie.getCookie("id")
-        const res = await saveProduct({
-            variables: {
-                "file": dataObj.photo,
-                "product": {
-                    "cost": Number(dataObj.cost),
-                    "name": dataObj.name,
-                    "path": "",
-                    "uid": id
+        try {
+            const [isFormValid, dataObj] = formLevelValidation(formControls, setFormControls)
+            if (!isFormValid) return;
+            setIsShowPopup(false)
+            dispatch({
+                type: "LOADER",
+                payload: true
+            })
+            const id = await AppCookie.getCookie("id")
+            const res = await saveProduct({
+                variables: {
+                    "file": dataObj.path,
+                    "product": {
+                        "cost": Number(dataObj.cost),
+                        "name": dataObj.name,
+                        "path": "",
+                        "uid": id
+                    }
                 }
+            })
+            const { acknowledged, insertedId } = res?.data?.saveProduct
+            let isSuccess = false
+            if (acknowledged && insertedId) {
+                isSuccess = true;
+                refetch();
             }
-        })
-        console.log(res)
+            dispatch({
+                type: "TOASTER",
+                payload: {
+                    isShowToaster: true,
+                    toasterMessage: isSuccess ? 'Successfully Saved' : "Not Saved",
+                    toasterBG: isSuccess ? 'green' : 'red'
+                }
+            })
+        } catch (ex) {
+            dispatch({
+                type: "TOASTER",
+                payload: {
+                    isShowToaster: true,
+                    toasterMessage: "Something went wrong",
+                    toasterBG: 'red'
+                }
+            })
+        } finally {
+
+            dispatch({
+                type: "LOADER",
+                payload: false
+            })
+        }
     }
     const handleChange = (eve: any) => {
         fieldLevelValidation(eve, formControls, setFormControls)
@@ -90,6 +138,8 @@ export const Products = () => {
                 </div>
             </Popup>
             }
+            {isShowModal && <Modal modalActions={modalActions} />}
+
         </div>
     )
 }

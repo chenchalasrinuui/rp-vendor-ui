@@ -22,7 +22,9 @@ function validate(inputControlObj: any, inputControls: any) {
     const { criteria, value, compare } = inputControlObj;
     inputControlObj.error = "";
     for (let text of criteria) {
+        console.log(text);
         switch (text) {
+
             case 'SIZE':
                 const { size } = value;
                 if (size > 6144) {
@@ -46,6 +48,7 @@ function validate(inputControlObj: any, inputControls: any) {
                 }
                 break;
             default:
+                debugger;
                 const { pattern, error } = regExpvaidations[text]
                 if (!pattern.test(value)) {
                     inputControlObj.error = error;
@@ -53,7 +56,9 @@ function validate(inputControlObj: any, inputControls: any) {
                 }
 
         }
-
+        if (inputControlObj.error) {
+            break;
+        }
     }
 }
 export function formLevelValidation(formControls: any, setFormControls: any) {
@@ -105,7 +110,12 @@ export function fieldLevelValidation(eve: any, formControls: any, setFormControl
 export function setDataToForm(formControls: any, setFormControls: any, data: any) {
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
-        obj.value = data[obj.name]
+        if (obj.type === 'file') {
+            obj.src = "http://localhost:4000" + data[obj.name]
+        } else {
+            obj.value = data[obj.name]
+        }
+
     })
     setFormControls(clonedFormControl)
 }

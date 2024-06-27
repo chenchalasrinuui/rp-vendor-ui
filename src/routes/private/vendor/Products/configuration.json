@@ -35,7 +35,7 @@
         "lbl": "Photo",
         "tag": "input",
         "type": "file",
-        "name": "photo",
+        "name": "path",
         "isRequired": true,
         "value": "",
         "error": "",
