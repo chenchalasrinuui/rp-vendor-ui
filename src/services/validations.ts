@@ -123,6 +123,9 @@ export function setDataToForm(formControls: any, setFormControls: any, data: any
 export function clearFormData(formControls: any, setFormControls: any) {
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
+        if (obj.type === 'file') {
+            obj.src = "";
+        }
         obj.value = "";
     })
     setFormControls(clonedFormControl)
