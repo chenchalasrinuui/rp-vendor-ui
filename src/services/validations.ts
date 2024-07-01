@@ -48,7 +48,6 @@ function validate(inputControlObj: any, inputControls: any) {
                 }
                 break;
             default:
-                debugger;
                 const { pattern, error } = regExpvaidations[text]
                 if (!pattern.test(value)) {
                     inputControlObj.error = error;
@@ -111,10 +110,12 @@ export function setDataToForm(formControls: any, setFormControls: any, data: any
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
         if (obj.type === 'file') {
-            obj.src = "http://localhost:4000" + data[obj.name]
+            obj.src = "http://localhost:4000" + data['path']
+            obj.value = data['path']
         } else {
             obj.value = data[obj.name]
         }
+
 
     })
     setFormControls(clonedFormControl)

@@ -15,6 +15,7 @@ import { SAVE_PRODUCT } from '@/services/graphql/saveProductGQ'
 import { DELETE_PRODUCT_GQL } from '@/services/graphql/deleteProductGQ'
 import { AppCookie } from '@/services/cookies'
 import { Modal } from '@/reusableComponents/Modal'
+import { UPDATE_PRODUCT_GQ } from '@/services/graphql/updateProductGQ'
 
 export const Products = () => {
     const [isShowModal, setIsShowModal] = useState(false)
@@ -22,10 +23,11 @@ export const Products = () => {
     const [fnGetUsers, { loading, error, data, refetch }] = useLazyQuery(PRODUCTS_LIST_GQ);
     const [saveProduct, { loading: saveProductLoading, error: saveProductError, data: saveProductData }] = useMutation(SAVE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT_GQL)
+    const [updateProduct] = useMutation(UPDATE_PRODUCT_GQ)
 
     const [isShowPopup, setIsShowPopup] = useState(false)
     const { dispatch }: any = useAppContext()
-    const deleteIdRef = React.useRef();
+    const modifiedIdRef = React.useRef();
     const isSaveRef = React.useRef(true);
     useEffect(() => {
         (async () => {
@@ -47,13 +49,14 @@ export const Products = () => {
     const handleEdit = (row: any) => {
         isSaveRef.current = false;
         setDataToForm(formControls, setFormControls, row)
+        modifiedIdRef.current = row?._id
         setIsShowPopup(true);
         console.log(row);
     }
 
     const handleDelete = (row: any) => {
         setIsShowModal(true);
-        deleteIdRef.current = row?._id
+        modifiedIdRef.current = row?._id
     }
 
     const modalActions = async (opt: string) => {
@@ -66,7 +69,7 @@ export const Products = () => {
                 })
                 const res = await deleteProduct({
                     variables: {
-                        "deleteProductId": deleteIdRef.current
+                        "deleteProductId": modifiedIdRef.current
                     }
                 })
                 const { acknowledged, deletedCount } = res?.data?.deleteProduct;
@@ -104,7 +107,7 @@ export const Products = () => {
     const handleSaveProduct = async (dataObj: any, id: any) => {
         const res = await saveProduct({
             variables: {
-                "file": dataObj.path,
+                "file": dataObj.file,
                 "product": {
                     "cost": Number(dataObj.cost),
                     "name": dataObj.name,
@@ -116,8 +119,20 @@ export const Products = () => {
         const { acknowledged, insertedId } = res?.data?.saveProduct
         return acknowledged && insertedId
     }
-    const hanldeUpldateProduct = () => {
-
+    const hanldeUpldateProduct = async ({ file, cost, name, path }: any) => {
+        const res = await updateProduct({
+            variables: {
+                "file": typeof (file) === 'string' ? null : file,
+                "data": {
+                    "cost": Number(cost),
+                    "name": name,
+                    "path": path,
+                },
+                "updateProductId": modifiedIdRef.current
+            }
+        })
+        const { acknowledged, modifiedCount } = res?.data?.updateProduct
+        return acknowledged && modifiedCount
     }
     const handleSubmit = async () => {
         try {
@@ -133,7 +148,7 @@ export const Products = () => {
             if (isSaveRef.current) {
                 isSuccess = await handleSaveProduct(dataObj, id)
             } else {
-                isSuccess = await hanldeUpldateProduct()
+                isSuccess = await hanldeUpldateProduct(dataObj)
             }
             if (isSuccess) {
                 refetch();
