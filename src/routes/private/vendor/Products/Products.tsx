@@ -27,7 +27,7 @@ export const Products = () => {
 
     const [isShowPopup, setIsShowPopup] = useState(false)
     const { dispatch }: any = useAppContext()
-    const modifiedIdRef = React.useRef();
+    const modifiedRowRef = React.useRef();
     const isSaveRef = React.useRef(true);
     useEffect(() => {
         (async () => {
@@ -49,14 +49,14 @@ export const Products = () => {
     const handleEdit = (row: any) => {
         isSaveRef.current = false;
         setDataToForm(formControls, setFormControls, row)
-        modifiedIdRef.current = row?._id
+        modifiedRowRef.current = JSON.parse(JSON.stringify(row))
         setIsShowPopup(true);
         console.log(row);
     }
 
     const handleDelete = (row: any) => {
         setIsShowModal(true);
-        modifiedIdRef.current = row?._id
+        modifiedRowRef.current = JSON.parse(JSON.stringify(row))
     }
 
     const modalActions = async (opt: string) => {
@@ -69,7 +69,8 @@ export const Products = () => {
                 })
                 const res = await deleteProduct({
                     variables: {
-                        "deleteProductId": modifiedIdRef.current
+                        "deleteProductId": modifiedRowRef?.current?.['_id'],
+                        "path": modifiedRowRef.current?.['path']
                     }
                 })
                 const { acknowledged, deletedCount } = res?.data?.deleteProduct;
@@ -119,16 +120,16 @@ export const Products = () => {
         const { acknowledged, insertedId } = res?.data?.saveProduct
         return acknowledged && insertedId
     }
-    const hanldeUpldateProduct = async ({ file, cost, name, path }: any) => {
+    const hanldeUpdateProduct = async ({ file, cost, name }: any) => {
         const res = await updateProduct({
             variables: {
                 "file": typeof (file) === 'string' ? null : file,
                 "data": {
                     "cost": Number(cost),
                     "name": name,
-                    "path": path,
+                    "path": modifiedRowRef.current?.['path'],
                 },
-                "updateProductId": modifiedIdRef.current
+                "updateProductId": modifiedRowRef.current?.['_id']
             }
         })
         const { acknowledged, modifiedCount } = res?.data?.updateProduct
@@ -148,7 +149,7 @@ export const Products = () => {
             if (isSaveRef.current) {
                 isSuccess = await handleSaveProduct(dataObj, id)
             } else {
-                isSuccess = await hanldeUpldateProduct(dataObj)
+                isSuccess = await hanldeUpdateProduct(dataObj)
             }
             if (isSuccess) {
                 refetch();
