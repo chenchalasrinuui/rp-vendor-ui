@@ -2,7 +2,7 @@
     {
         "lbl": "Current Password",
         "tag": "input",
-        "type": "password",
+        "type": "text",
         "name": "currPassword",
         "isRequired": true,
         "placeholder": "Current password",

@@ -48,6 +48,7 @@ export const Products = () => {
 
     const handleEdit = (row: any) => {
         isSaveRef.current = false;
+
         setDataToForm(formControls, setFormControls, row)
         modifiedRowRef.current = JSON.parse(JSON.stringify(row))
         setIsShowPopup(true);

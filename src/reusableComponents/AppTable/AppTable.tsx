@@ -19,6 +19,7 @@ type TableProps = {
 const AppTable = (props: TableProps) => {
 
     const { hasImage, imageHeaders, imageColumns, headers, data, columns, isShowDelete, isShowEdit, handleDelete, handleEdit } = props;
+
     const [pageNo, setPageNo] = useState(1)
     const [currData, setCurrData] = useState([])
     const perPage = 5;
@@ -27,7 +28,7 @@ const AppTable = (props: TableProps) => {
         const end = pageNo * perPage
         const start = end - perPage;
         setCurrData(data?.slice?.(start, end) || [])
-    }, [pageNo])
+    }, [pageNo, data])
 
 
     return (
@@ -58,7 +59,7 @@ const AppTable = (props: TableProps) => {
                             return <tr key={`tr_${index}`}>
                                 {
                                     hasImage && imageColumns.map((key: any, ind: any) => {
-                                        return <td key={`td_${ind}`}><Image alt="image" src={`http://localhost:4000${obj[key]}`} width="100" height="100" /></td>
+                                        return <td key={`td_${ind}`}><Image alt="image" src={`http://localhost:4000${obj[key]}?${new Date().getTime()}`} width="100" height="100" /></td>
                                     })
                                 }
                                 {

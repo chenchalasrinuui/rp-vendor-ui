@@ -22,7 +22,6 @@ function validate(inputControlObj: any, inputControls: any) {
     const { criteria, value, compare } = inputControlObj;
     inputControlObj.error = "";
     for (let text of criteria) {
-        console.log(text);
         switch (text) {
 
             case 'SIZE':
@@ -42,9 +41,10 @@ function validate(inputControlObj: any, inputControls: any) {
             case 'COMPARE':
                 const compareObj1 = inputControls.find((obj: any) => obj.name === compare[0])
                 const compareObj2 = inputControls.find((obj: any) => obj.name === compare[1])
+                compareObj1.error = ""
+                compareObj2.error = ""
                 if (compareObj1.value && compareObj2.value && compareObj1.value !== compareObj2.value) {
                     inputControlObj.error = "Password mismatch";
-                    break;
                 }
                 break;
             default:
@@ -88,6 +88,10 @@ export function fieldLevelValidation(eve: any, formControls: any, setFormControl
     inputControlObj.error = "";
     if (type === 'file') {
         const file = files['0'];
+        if (!file) {
+            console.log(1, inputControlObj)
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
@@ -110,7 +114,7 @@ export function setDataToForm(formControls: any, setFormControls: any, data: any
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
         if (obj.type === 'file') {
-            obj.src = "http://localhost:4000" + data['path']
+            obj.src = "http://localhost:4000" + data['path'] + "?" + new Date().getTime();
             obj.value = data['path']
         } else {
             obj.value = data[obj.name]

@@ -12,7 +12,7 @@
     {
         "text": "Change Pwd",
         "path": "change-pwd",
-        "id": "changePwd"
+        "id": "change-pwd"
     },
     {
         "text": "Logout",

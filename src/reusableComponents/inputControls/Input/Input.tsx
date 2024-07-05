@@ -34,9 +34,10 @@ const Input = ({ value, src, lblColumns, errorMsgColumns, inputCtrlColumns, lbl,
             case 'checkbox':
                 return <div></div>
             case 'file':
+                console.log(src)
                 return <>
                     <input onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
-                    <p className='mt-3'><Image src={`${src ? src : "/defaultImage.jpg"}`} width={100} height={100} alt="selected Image" /></p>
+                    <p className='mt-3'><Image src={`${src ? src : "/defaultImage.jpg?" + new Date().getTime()}`} width={100} height={100} alt="selected Image" /></p>
                 </>
             default:
                 return <div></div>
