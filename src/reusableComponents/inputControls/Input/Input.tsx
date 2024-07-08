@@ -15,14 +15,15 @@ type propsType = {
     inputCtrlColumns: any,
     value: string,
     src?: any
+    disabled?: any,
 }
-const Input = ({ value, src, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
+const Input = ({ value, src, disabled, lblColumns, errorMsgColumns, inputCtrlColumns, lbl, isRequired, type, name, placeholder, handleChange, error, options, values }: propsType) => {
     const fnPrepareInputControls = () => {
         switch (type) {
             case 'text':
             case 'password':
             case 'number':
-                return <input value={value} onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
+                return <input disabled={disabled} value={value} onChange={handleChange} className='form-control' type={type} name={name} placeholder={placeholder} />
             case 'radio':
                 return <>
                     {

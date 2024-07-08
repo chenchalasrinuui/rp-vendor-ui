@@ -110,24 +110,32 @@ export function fieldLevelValidation(eve: any, formControls: any, setFormControl
     }
 }
 
-export function setDataToForm(formControls: any, setFormControls: any, data: any) {
+export function setDataToForm(formControls: any, setFormControls: any, data: any, properties: any) {
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
+        if (properties && properties[obj.name]) {
+            for (const key in properties[obj.name]) {
+                obj[key] = properties[obj.name]?.[key]
+            }
+        }
         if (obj.type === 'file') {
             obj.src = "http://localhost:4000" + data['path'] + "?" + new Date().getTime();
             obj.value = data['path']
         } else {
             obj.value = data[obj.name]
         }
-
-
     })
     setFormControls(clonedFormControl)
 }
 
-export function clearFormData(formControls: any, setFormControls: any) {
+export function clearFormData(formControls: any, setFormControls: any, properties: any) {
     const clonedFormControl: any = JSON.parse(JSON.stringify(formControls))
     clonedFormControl.forEach((obj: any) => {
+        if (properties && properties[obj.name]) {
+            for (const key in properties[obj.name]) {
+                obj[key] = properties[obj.name]?.[key]
+            }
+        }
         if (obj.type === 'file') {
             obj.src = "";
         }

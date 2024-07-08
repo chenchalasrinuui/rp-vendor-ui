@@ -64,7 +64,7 @@ export const Vendors = () => {
      * close popup
      */
     const closePopup = () => {
-        clearFormData(formControls, setFormControls)
+        clearFormData(formControls, setFormControls, { uid: { disabled: false } })
         setShowPopup(false)
         setIsEdit(false);
     }
@@ -176,7 +176,7 @@ export const Vendors = () => {
     const handleEdit = (data: any) => {
         idRef.current = data._id
         setIsEdit(true);
-        setDataToForm(formControls, setFormControls, data)
+        setDataToForm(formControls, setFormControls, data, { uid: { disabled: true } })
         setShowPopup(true)
     }
     /***

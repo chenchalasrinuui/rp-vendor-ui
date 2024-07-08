@@ -32,7 +32,7 @@ export const ChangePassword = () => {
             const { acknowledged, modifiedCount } = res?.data?.changePassword
             const isSuccess = acknowledged && modifiedCount
             if (isSuccess) {
-                clearFormData(formControls, setFormControls)
+                clearFormData(formControls, setFormControls, {})
             }
             dispatch({
                 type: "TOASTER",
