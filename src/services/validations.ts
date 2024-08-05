@@ -119,7 +119,7 @@ export function setDataToForm(formControls: any, setFormControls: any, data: any
             }
         }
         if (obj.type === 'file') {
-            obj.src = "http://localhost:4000" + data['path'] + "?" + new Date().getTime();
+            obj.src = "https://rp-vendor-server.vercel.app" + data['path'] + "?" + new Date().getTime();
             obj.value = data['path']
         } else {
             obj.value = data[obj.name]

@@ -59,7 +59,7 @@ const AppTable = (props: TableProps) => {
                             return <tr key={`tr_${index}`}>
                                 {
                                     hasImage && imageColumns.map((key: any, ind: any) => {
-                                        return <td key={`td_${ind}`}><Image alt="image" src={`http://localhost:4000${obj[key]}?${new Date().getTime()}`} width="100" height="100" /></td>
+                                        return <td key={`td_${ind}`}><Image alt="image" src={`https://rp-vendor-server.vercel.app${obj[key]}?${new Date().getTime()}`} width="100" height="100" /></td>
                                     })
                                 }
                                 {

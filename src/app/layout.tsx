@@ -22,12 +22,12 @@ import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: 'http://localhost:4000/graphql/'
+    uri: 'https://rp-vendor-server.vercel.app/graphql/'
   }),
   cache: new InMemoryCache(),
 });
 // const client = new ApolloClient({
-//   uri: 'http://localhost:4000/graphql',
+//   uri: 'https://rp-vendor-server.vercel.app/graphql',
 //   cache: new InMemoryCache(),
 // });
 
